@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Img aud Converter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Image to text with audio Converter</h1>
+            <p>Upload an image and let us describe it to you!</p>
+        </div>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <label for="imageUpload" class="file-label">Choose Image</label>
+            <input id="imageUpload" type="file" name="image" accept="image/*" required>
+            <button type="submit" class="upload-btn">Upload and Process</button>
+        </form>
+        <div id="result" class="result" style="display: none;">
+            <p id="description"></p>
+            <audio id="audio" controls></audio>
+        </div>
+    </div>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
