@@ -18,6 +18,11 @@ model = tf.keras.applications.MobileNetV2(weights='imagenet')
 def index():
     return render_template('index.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'image' not in request.files:
@@ -59,13 +64,12 @@ def classify_image(image_path):
         predictions = model.predict(image)
         decoded_predictions = tf.keras.applications.mobilenet_v2.decode_predictions(predictions, top=5)[0]
 
-        description = f"This is a {decoded_predictions[0][1]} with a {decoded_predictions[0][2]*100:.2f}% probability."
+        description = f"This is a {decoded_predictions[0][1]}."
         detailed_info = []
 
         for pred in decoded_predictions:
             detailed_info.append({
-                'class': pred[1],
-                'probability': f"{pred[2]*100:.2f}%"
+                'class': pred[1]
             })
 
         return description, detailed_info

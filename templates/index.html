@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Img aud Converter</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Img Aud Converter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <!-- Navigation Bar -->
+    <nav class="navMenu">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a> 
+        <a href="#">Features</a> 
+        <a href="#">Contact</a> 
+        <a href="#">Demo</a> 
+        <div class="dot"></div>
+    </nav>    
+
+    <div class="container" data-aos="fade-up">
         <div class="header">
-            <h1>Image to text with audio Converter</h1>
+            <h1>Image to Text with Audio Converter</h1>
             <p>Upload an image and let us describe it to you!</p>
         </div>
         <form id="uploadForm" enctype="multipart/form-data">
@@ -23,6 +34,21 @@
             <audio id="audio" controls></audio>
         </div>
     </div>
+
+    <!-- Loader Section -->
+    <div id="loader" class="loader" style="display: none;">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+        <div class="bar4"></div>
+        <div class="bar5"></div>
+        <div class="bar6"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="/static/js/script.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
 </html>
