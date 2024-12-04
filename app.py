@@ -15,12 +15,16 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tessera
 model = tf.keras.applications.MobileNetV2(weights='imagenet')
 
 @app.route('/')
-def index():
+def home():
     return render_template('index.html')
 
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
 
 
 @app.route('/upload', methods=['POST'])

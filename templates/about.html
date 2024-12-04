@@ -1,85 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Img Aud Converter</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Merienda&display=swap" rel="stylesheet">
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif; /* Use Poppins for titles */
+      overflow-x: hidden;
+    }
+
+    section {
+      padding: 50px;
+      text-align: center;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-family: 'Poppins', sans-serif; /* Poppins for headings */
+    }
+
+    p {
+      font-family: 'Merienda', cursive; /* Merienda for paragraph text */
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    /* About Us Section */
+    .about-section {
+      height: 100vh;
+      background: url('/static/specialy.jpg') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      color: white;
+      text-transform: uppercase;
+      overflow: hidden;
+    }
+
+    .about-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      z-index: 1;
+    }
+
+    .about-section h1 {
+      font-size: 5rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 2;
+      animation: fadeInScale 2s ease-in-out;
+    }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Content Section */
+    .content-section {
+      background: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 50px;
+    }
+
+    .content-section .text {
+      width: 50%;
+      text-align: left;
+      padding: 20px;
+    }
+
+    .content-section .text h2 {
+      font-size: 2.5rem;
+      color: #1F509A;
+    }
+
+    .content-section .video {
+      width: 40%;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(240, 238, 238, 0.2);
+      border-radius: 8px;
+    }
+
+    .content-section .video video {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    /* Our Project Section */
+    .project-section {
+      background: #f9f9f9;
+      padding: 100px 50px;
+    }
+
+    .project-section h2 {
+      font-size: 3rem;
+      color: #1F509A;
+      margin-bottom: 20px;
+      animation: slideIn 1.5s ease-in-out forwards;
+    }
+
+    .project-section p {
+      font-size: 1.2rem;
+      color: #333;
+      line-height: 1.8;
+      animation: fadeUp 1.5s ease-in-out forwards;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Custom Section */
+    .custom-section {
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .custom-section h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .custom-section p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      width: 60%;
+      color: #f9f9f9;
+    }
+
+/* Navigation Styles */
+.navMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: transparent; /* Set the background to transparent */
+    padding: 15px 50px;
+    display: flex;
+    justify-content: center; /* Center the navigation items horizontally */
+    align-items: center; /* Vertically align the navigation items */
+    z-index: 100;
+    font-family: 'Poppins', sans-serif; /* Use Poppins font */
+    box-shadow: none; /* Remove the box-shadow */
+}
+
+.navMenu a {
+    color: #f6f4e6; /* Text color */
+    text-decoration: none;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 0 20px; /* Add space between items */
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navMenu a:hover {
+    color: #fddb3a; /* Hover color */
+    transform: translateY(-5px); /* Slight hover effect */
+}
+
+.navMenu .dot {
+    width: 6px;
+    height: 6px;
+    background: #fddb3a;
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Hover effects for navigation items */
+.navMenu a:nth-child(1):hover ~ .dot {
+    transform: translateX(30px);
+    opacity: 1;
+}
+
+.navMenu a:nth-child(2):hover ~ .dot {
+    transform: translateX(110px);
+    opacity: 1;
+}
+
+.navMenu a:nth-child(3):hover ~ .dot {
+    transform: translateX(200px);
+    opacity: 1;
+}
+
+.navMenu a:nth-child(4):hover ~ .dot {
+    transform: translateX(285px);
+    opacity: 1;
+}
+
+.navMenu a:nth-child(5):hover ~ .dot {
+    transform: translateX(370px);
+    opacity: 1;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+    .navMenu {
+        padding: 15px 20px;
+        flex-direction: column; /* Stack the items vertically */
+        align-items: center; /* Center the items vertically */
+    }
+    
+    .navMenu a {
+        margin: 10px 0; /* Adjust space between items */
+        font-size: 1.1em;
+    }
+
+    .navMenu a:hover {
+        transform: none; /* Remove hover translate effect on mobile */
+    }
+}
+
+
+  </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navMenu">
-        <a href="#">Home</a>
-        <a href="#">About</a> 
-        <a href="#">Features</a> 
-        <a href="#">Contact</a> 
-        <a href="#">Demo</a> 
-        <div class="dot"></div>
-    </nav>
 
-    <div class="about-container">
-        <section class="about-section" data-aos="fade-up">
-            <h2>Why This Website?</h2>
-            <p>This website is designed to help people who may have visual impairments or any disability that makes it hard to interpret images. It uses AI to describe images in detail and convert them into audio, making the content more accessible to everyone.</p>
-        </section>
-
-        <section class="about-section" data-aos="fade-up">
-            <h2>What It Does</h2>
-            <p>This website allows you to upload an image, and our AI-powered system processes the image to generate a text description. This description is then converted into an audio file, making it easier for people to understand and enjoy images.</p>
-        </section>
-
-        <section class="about-section" data-aos="fade-up">
-            <h2>How It Works</h2>
-            <p>Once you upload an image, our system uses image recognition technology to detect objects and scenes within the image. It then generates a detailed description, which is converted into audio. You can listen to the audio through a built-in audio player on the site.</p>
-        </section>
-
-        <section class="team-section" data-aos="fade-up">
-            <h2>Meet Our Team</h2>
-            <div class="team-members">
-                <div class="team-member">
-                    <img src="team1.jpg" alt="Team Member 1">
-                    <h3>John Doe</h3>
-                    <p>Software Engineer</p>
-                    <p>3rd Year</p>
-                    <p>XYZ College</p>
-                </div>
-                <div class="team-member">
-                    <img src="team2.jpg" alt="Team Member 2">
-                    <h3>Jane Smith</h3>
-                    <p>UI/UX Designer</p>
-                    <p>2nd Year</p>
-                    <p>XYZ College</p>
-                </div>
-                <div class="team-member">
-                    <img src="team3.jpg" alt="Team Member 3">
-                    <h3>Robert Lee</h3>
-                    <p>Data Scientist</p>
-                    <p>4th Year</p>
-                    <p>XYZ College</p>
-                </div>
-                <div class="team-member">
-                    <img src="team4.jpg" alt="Team Member 4">
-                    <h3>Emily Davis</h3>
-                    <p>Project Manager</p>
-                    <p>3rd Year</p>
-                    <p>XYZ College</p>
-                </div>
-                <div class="team-member">
-                    <img src="team5.jpg" alt="Team Member 5">
-                    <h3>Michael Brown</h3>
-                    <p>Marketing Head</p>
-                    <p>2nd Year</p>
-                    <p>XYZ College</p>
-                </div>
-            </div>
-        </section>
+    <div class="navbar-container">
+        <!-- Include the navigation bar -->
+        {% include 'navmenu.html' %}
     </div>
+    
+  <!-- About Section -->
+  <section class="about-section">
+    <h1 data-aos="fade-up">About Us</h1>
+  </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
+  <!-- Content Section -->
+  <section class="content-section">
+    <div class="text" data-aos="fade-right">
+      <h2>About</h2>
+      <p>At our core, we believe in empowering technology to break barriers. Our mission is to build tools that make the world more accessible, inclusive, and innovative. With cutting-edge advancements in image recognition and text-to-speech technologies, we are creating solutions that cater to diverse needs, especially for individuals with visual impairments. Join us in our journey to transform industries and lives with technology.</p>
+    </div>
+    <div class="video" data-aos="fade-left">
+      <video controls>
+        <source src="/static/visualvideo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
+
+  <!-- Our Project Section -->
+  <section class="project-section">
+    <h2 data-aos="fade-up">Our Project</h2>
+    <p data-aos="fade-up">Our project aims to make image descriptions accessible to the visually impaired by integrating image recognition and text-to-speech technology. We focus on inclusivity, creating a bridge between sight and sound to improve accessibility for people with disabilities. The project brings together art, science, and empathy to provide a more inclusive world.</p>
+  </section>
+
+  <!-- Custom Section -->
+  <section class="custom-section">
+    <h2 data-aos="fade-up">Join Us in Making a Difference</h2>
+    <p data-aos="fade-up">Explore our project and see how technology can break boundaries. Together, we can create an inclusive world where everyone has access to the resources and experiences they deserve. Thank you for your interest!</p>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+      AOS.init();
+  </script>
 </body>
 </html>
