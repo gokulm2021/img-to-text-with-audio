@@ -8,11 +8,21 @@ import tensorflow as tf
 import numpy as np
 
 app = Flask(__name__)
+
+# Configuration for file upload and output directories
 app.config['UPLOAD_FOLDER'] = './static/uploads'
 app.config['OUTPUT_FOLDER'] = './static/output'
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
+# Set the path for Tesseract (make sure it's correct)
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+# Load pre-trained MobileNetV2 model for image classification
 model = tf.keras.applications.MobileNetV2(weights='imagenet')
+
+# Ensure necessary directories exist
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+os.makedirs(app.config['OUTPUT_FOLDER'], exist_ok=True)
 
 @app.route('/')
 def home():
@@ -22,10 +32,17 @@ def home():
 def about():
     return render_template('about.html')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/features')
+def features():
+    return render_template('features.html')  # Assuming you have a features.html page
 
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')  # Assuming you have a contact.html page
 
+@app.route('/deaf')
+def deaf():
+    return render_template('deaf.html')  # Assuming you have a deaf.html page
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -36,35 +53,57 @@ def upload_file():
     if file.filename == '':
         return jsonify({"error": "No file selected"}), 400
 
+    # Check if the file has an allowed extension
+    if not allowed_file(file.filename):
+        return jsonify({"error": "File type not allowed. Please upload an image."}), 400
+
     filename = secure_filename(file.filename)
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(filepath)
 
-    text = extract_text(filepath)
+    try:
+        # Try to extract text from the image
+        text = extract_text(filepath)
+        if text.strip():  # If text is detected
+            audio_path = generate_audio(f"Text detected: {text}")
+            return jsonify({"description": text, "audio_path": audio_path}), 200
+        else:
+            # If no text is detected, classify the image
+            description, detailed_info = classify_image(filepath)
+            audio_path = generate_audio(description)
+            return jsonify({
+                "description": description,
+                "detailed_info": detailed_info,
+                "audio_path": audio_path
+            }), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-    if text.strip():
-        audio_path = generate_audio(f"Text detected: {text}")
-        return jsonify({"text": text, "audio_path": audio_path}), 200
-    else:
-        description, detailed_info = classify_image(filepath)
-        audio_path = generate_audio(description)
-        return jsonify({"description": description, "detailed_info": detailed_info, "audio_path": audio_path}), 200
 
+
+# Helper function to check allowed file extensions
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
+# Function to extract text from an image using pytesseract
 def extract_text(image_path):
     try:
         image = Image.open(image_path)
         text = pytesseract.image_to_string(image)
+        print(f"Extracted text: {text}")  # Debugging: Check what text is extracted
         return text
     except Exception as e:
-        return str(e)
+        raise Exception(f"Error in extracting text: {str(e)}")
 
+# Function to classify the image using MobileNetV2
 def classify_image(image_path):
     try:
         image = Image.open(image_path)
-        image = image.resize((224, 224))
-        image = np.array(image) / 255.0
-        image = np.expand_dims(image, axis=0)
+        image = image.resize((224, 224))  # Resize to fit MobileNetV2 input size
+        image = np.array(image) / 255.0  # Normalize the image
+        image = np.expand_dims(image, axis=0)  # Add batch dimension
 
+        # Predict the image class
         predictions = model.predict(image)
         decoded_predictions = tf.keras.applications.mobilenet_v2.decode_predictions(predictions, top=5)[0]
 
@@ -73,21 +112,28 @@ def classify_image(image_path):
 
         for pred in decoded_predictions:
             detailed_info.append({
-                'class': pred[1]
+                'class': pred[1],
+                'confidence': pred[2]
             })
 
+        print(f"Predicted description: {description}")  # Debugging: Check predicted description
         return description, detailed_info
+
     except Exception as e:
-        return "Error in image classification.", []
+        raise Exception(f"Error in classifying image: {str(e)}")
 
+# Function to generate audio from text using pyttsx3
 def generate_audio(text):
-    audio_path = os.path.join(app.config['OUTPUT_FOLDER'], 'output.mp3')
-    engine = pyttsx3.init()
-    engine.save_to_file(text, audio_path)
-    engine.runAndWait()
-    return f'/static/output/output.mp3'
+    try:
+        audio_path = os.path.join(app.config['OUTPUT_FOLDER'], 'output.mp3')
+        engine = pyttsx3.init()
+        engine.save_to_file(text, audio_path)
+        engine.runAndWait()
+        print(f"Audio file generated: {audio_path}")  # Debugging: Check if audio is generated
+        return f'/static/output/output.mp3'
+    except Exception as e:
+        raise Exception(f"Error in generating audio: {str(e)}")
 
+# Run the Flask application
 if __name__ == '__main__':
-    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    os.makedirs(app.config['OUTPUT_FOLDER'], exist_ok=True)
     app.run(debug=True)

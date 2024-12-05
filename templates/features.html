@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - Img Aud Converter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
+</head>
+
+<body>
+    <div class="navbar-container">
+        <!-- Include the navigation bar -->
+        {% include 'navmenu.html' %}
+    </div>
+    
+
+    <!-- Features Section with Background Image -->
+    <div class="features-section">
+        <div class="features-header" data-aos="fade-up" data-aos-duration="1500">
+            <h1>Explore Our Features</h1>
+            <p>Transforming images to accessible content seamlessly!</p>
+        </div>
+
+        <div class="feature-container">
+            <!-- Feature 1: Image to Text Conversion -->
+            <div class="feature hvr-float-shadow" data-aos="fade-right" data-aos-duration="1500">
+                <div class="feature-icon">
+                    <img src="/static/feature1.jpg" alt="Image to Text Conversion">
+                </div>
+                <div class="feature-text">
+                    <h2>Image to Text Conversion</h2>
+                    <p>Our AI-driven tool extracts text from images with exceptional precision, making it easier for you to extract meaningful content from visual formats like screenshots, scanned documents, or even photographs!</p>
+                </div>
+            </div>
+            <!-- Feature 2: Audio Generation -->
+            <div class="feature hvr-float-shadow" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="300">
+                <div class="feature-icon">
+                    <img src="/static/feature2.jpg" alt="Audio Generation">
+                </div>
+                <div class="feature-text">
+                    <h2>Audio Generation</h2>
+                    <p>Once the text is extracted, our system generates a clear and natural-sounding audio file. It reads the text out loud for users who prefer auditory content or require accessibility assistance.</p>
+                </div>
+            </div>
+            <!-- Feature 3: Accessibility Focused -->
+            <div class="feature hvr-float-shadow" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="600">
+                <div class="feature-icon">
+                    <img src="/static/feature3.jpg" alt="Accessibility Focused">
+                </div>
+                <div class="feature-text">
+                    <h2>Accessibility Focused</h2>
+                    <p>We prioritize inclusivity, offering users with disabilities a way to easily interact with visual content. This feature helps those with visual impairments or learning difficulties access information in a new, meaningful way.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action Section -->
+    <div class="cta-section" data-aos="fade-up" data-aos-duration="1500">
+        <h2>Ready to Try It?</h2>
+        <p>Experience the future of image-to-text and audio conversion now!</p>
+        <!-- Link updated to navigate to the contact page with contact-form -->
+        <a href="/" class="cta-button hvr-buzz-out">Try Now</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="/static/js/script.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>

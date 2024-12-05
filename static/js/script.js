@@ -1,42 +1,55 @@
-document.getElementById('uploadForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('uploadForm');
+    const loader = document.getElementById('loader');
+    const result = document.getElementById('result');
+    const description = document.getElementById('description');
+    const audioContainer = document.getElementById('audio');  // Container to hold the audio element
 
-    // Show the loader and add blur effect
-    document.body.classList.add('loading');
-    document.getElementById('loader').style.display = 'flex';
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    const formData = new FormData(this);
+        // Show the loader while processing
+        loader.style.display = 'flex';
 
-    try {
-        const response = await fetch('/upload', {
-            method: 'POST',
-            body: formData,
-        });
+        const formData = new FormData(form);
 
-        if (!response.ok) {
-            throw new Error('Failed to process the image');
+        try {
+            // Sending the image to the Flask backend for processing
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            // Handle the JSON response from the backend
+            const data = await response.json();
+
+            // Hide loader and display result
+            loader.style.display = 'none';
+            result.style.display = 'block';
+
+            if (data.error) {
+                description.innerHTML = `<strong>Error:</strong> ${data.error}`;
+                return;
+            }
+
+            // Display the description
+            description.innerHTML = `<strong>Description:</strong> ${data.description || 'No description available'}`;
+
+            // Clear previous audio and create new audio element if available
+            if (data.audio_path && data.audio_path !== 'undefined') {
+                const audioElement = document.createElement('audio');
+                audioElement.controls = true;  // Add controls for play/pause
+                audioElement.src = data.audio_path;  // Path to the generated audio
+                audioContainer.innerHTML = '';  // Clear previous audio
+                audioContainer.appendChild(audioElement);
+                audioElement.play();  // Automatically play the audio
+            } else {
+                console.error('Invalid audio path:', data.audio_path);
+            }
+
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            loader.style.display = 'none';
         }
-
-        const data = await response.json();
-
-        // Hide the loader and remove blur effect
-        document.body.classList.remove('loading');
-        document.getElementById('loader').style.display = 'none';
-
-        // Display the result
-        const resultSection = document.getElementById('result');
-        resultSection.style.display = 'block';
-        document.getElementById('description').innerText = data.text || data.description;
-        const audio = document.getElementById('audio');
-        audio.src = data.audio_path;
-        audio.load();
-    } catch (error) {
-        console.error(error);
-
-        // Hide the loader and remove blur effect in case of error
-        document.body.classList.remove('loading');
-        document.getElementById('loader').style.display = 'none';
-
-        alert('An error occurred while processing the image.');
-    }
+    });
 });

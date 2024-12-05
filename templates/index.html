@@ -10,16 +10,20 @@
 </head>
 <body>
 
-    <!-- First Section: Background with Quote -->
-<div class="quote-section">
-    <div class="quote-container">
-        <p class="quote">"Your vision will become clear only when you look into your heart." - Carl Jung</p>
+    <div class="navbar-container">
+        <!-- Include the navigation bar -->
+        {% include 'navmenu.html' %}
     </div>
-</div>
 
+    <!-- First Section: Background with Quote -->
+    <div class="quote-section">
+        <div class="quote-container">
+            <p class="quote">Being disabled should not mean being disqualified from having access to every aspect of life - Uniquely abled.</p>
+        </div>
+    </div>
 
-    <!-- Second Section: Container -->
-    <div class="container" data-aos="fade-up">
+    <!-- Second Section: Image to Text with Audio Converter -->
+    <div class="section">
         <div class="header">
             <h1>Image to Text with Audio Converter</h1>
             <p>Upload an image and let us describe it to you!</p>
@@ -29,20 +33,28 @@
             <input id="imageUpload" type="file" name="image" accept="image/*" required>
             <button type="submit" class="upload-btn">Upload and Process</button>
         </form>
+        <!-- Result Section -->
+<div id="result" class="result" style="display: none;">
+    <p id="description"></p>
+    <audio id="audio" controls></audio>
+</div>
+
+
+        <!-- Loader Section -->
+        <div id="loader" class="loader" style="display: none;">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+            <div class="bar4"></div>
+            <div class="bar5"></div>
+            <div class="bar6"></div>
+        </div>
+
+        <!-- Result Section -->
         <div id="result" class="result" style="display: none;">
             <p id="description"></p>
             <audio id="audio" controls></audio>
         </div>
-    </div>
-
-    <!-- Loader Section -->
-    <div id="loader" class="loader" style="display: none;">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
-        <div class="bar4"></div>
-        <div class="bar5"></div>
-        <div class="bar6"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
