@@ -26,7 +26,7 @@ os.makedirs(app.config['OUTPUT_FOLDER'], exist_ok=True)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index.html')  # Main upload page
 
 @app.route('/about')
 def about():
@@ -64,18 +64,13 @@ def upload_file():
     try:
         # Try to extract text from the image
         text = extract_text(filepath)
-        if text.strip():  # If text is detected
+        if text.strip():  # If text is detected in the image
             audio_path = generate_audio(f"Text detected: {text}")
-            return jsonify({"description": text, "audio_path": audio_path}), 200
-        else:
-            # If no text is detected, classify the image
+            return render_template('index.html', description=text, audio_path=audio_path, image_url=f'/static/uploads/{filename}')
+        else:  # If no text is detected, classify the image
             description, detailed_info = classify_image(filepath)
-            audio_path = generate_audio(description)
-            return jsonify({
-                "description": description,
-                "detailed_info": detailed_info,
-                "audio_path": audio_path
-            }), 200
+            audio_path = generate_audio(f"The image is of a {description}.")
+            return render_template('index.html', description=description, audio_path=audio_path, detailed_info=detailed_info, image_url=f'/static/uploads/{filename}')
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -96,20 +91,33 @@ def extract_text(image_path):
         raise Exception(f"Error in extracting text: {str(e)}")
 
 # Function to classify the image using MobileNetV2
+# Function to classify the image using MobileNetV2
 def classify_image(image_path):
     try:
+        # Open the image and convert to RGB if not already in RGB format
         image = Image.open(image_path)
-        image = image.resize((224, 224))  # Resize to fit MobileNetV2 input size
-        image = np.array(image) / 255.0  # Normalize the image
-        image = np.expand_dims(image, axis=0)  # Add batch dimension
+        if image.mode != 'RGB':
+            image = image.convert('RGB')
 
-        # Predict the image class
-        predictions = model.predict(image)
+        # Resize the image to 224x224 as required by MobileNetV2
+        image = image.resize((224, 224))  
+        
+        # Convert the image to a numpy array and normalize pixel values to [0, 1]
+        image_array = np.array(image) / 255.0
+        
+        # Expand dimensions to make it a batch of 1 image
+        image_array = np.expand_dims(image_array, axis=0)
+
+        # Predict the image class using the MobileNetV2 model
+        predictions = model.predict(image_array)
+
+        # Decode the predictions to get the class names and probabilities
         decoded_predictions = tf.keras.applications.mobilenet_v2.decode_predictions(predictions, top=5)[0]
 
         description = f"This is a {decoded_predictions[0][1]}."
         detailed_info = []
 
+        # Collect detailed prediction information (class names and confidence scores)
         for pred in decoded_predictions:
             detailed_info.append({
                 'class': pred[1],
@@ -122,15 +130,17 @@ def classify_image(image_path):
     except Exception as e:
         raise Exception(f"Error in classifying image: {str(e)}")
 
+
 # Function to generate audio from text using pyttsx3
 def generate_audio(text):
     try:
-        audio_path = os.path.join(app.config['OUTPUT_FOLDER'], 'output.mp3')
+        audio_filename = f'output_{np.random.randint(1, 100000)}.mp3'  # Unique filename
+        audio_path = os.path.join(app.config['OUTPUT_FOLDER'], audio_filename)
         engine = pyttsx3.init()
         engine.save_to_file(text, audio_path)
         engine.runAndWait()
         print(f"Audio file generated: {audio_path}")  # Debugging: Check if audio is generated
-        return f'/static/output/output.mp3'
+        return f'/static/output/{audio_filename}'
     except Exception as e:
         raise Exception(f"Error in generating audio: {str(e)}")
 
