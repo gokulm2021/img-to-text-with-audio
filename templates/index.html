@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Upload and Classification</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="../static/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -64,6 +64,23 @@
         <div class="bar2"></div>
         <div class="bar3"></div>
     </div>
-
+    <script>
+        let lastScrollTop = 0;
+        const nav = document.querySelector('.navMenu');
+    
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    
+            if (currentScroll > lastScrollTop) {
+                // Scrolling down - hide navbar
+                nav.style.top = '-100px'; // Adjust this value based on navbar height
+            } else {
+                // Scrolling up - show navbar
+                nav.style.top = '0';
+            }
+    
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For mobile or negative scroll
+        });
+    </script>    
 </body>
 </html>

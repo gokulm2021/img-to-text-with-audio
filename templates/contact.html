@@ -5,24 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
+    <link rel="stylesheet" href="../static/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
 
         /* Navigation Styles */
-.navMenu {
+        .navMenu {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: transparent; /* Set the background to transparent */
+    background: transparent;
     padding: 15px 50px;
     display: flex;
-    justify-content: center; /* Center the navigation items horizontally */
-    align-items: center; /* Vertically align the navigation items */
+    justify-content: center;
+    align-items: center;
     z-index: 100;
-    font-family: 'Poppins', sans-serif; /* Use Poppins font */
-    box-shadow: none; /* Remove the box-shadow */
+    font-family: 'Poppins', sans-serif;
+    box-shadow: none;
+    transition: top 0.3s ease; /* Smooth hide/show animation */
 }
+
 
 .navMenu a {
     color: #301ce6; /* Text color */
@@ -92,213 +95,6 @@
     }
 }
 
-        /* General Styles */
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f8ff; /* Light background color */
-            color: #333;
-            line-height: 1.6;
-        }
-
-        h1, h2 {
-            font-weight: 600;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            background-color: #FFBB64; /* Light blue background */
-            padding: 60px 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin: 50px auto;
-            width: 90%;
-            max-width: 900px;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeIn 1s forwards 0.3s;
-        }
-
-        .contact-header {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .contact-description {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 40px;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .input-field {
-            width: 90%;
-            padding: 12px 20px;
-            border-radius: 15px;
-            border: 1px solid #ccc;
-            font-size: 1.1rem;
-            color: #333;
-            background-color: #fafafa;
-            transition: border 0.3s ease;
-        }
-
-        .input-field:focus {
-            border: 2px solid #3498db;
-            outline: none;
-        }
-
-        .submit-btn {
-            background-color: #3498db;
-            color: white;
-            padding: 15px 30px;
-            width: 25%;
-            border-radius: 60px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            border: none;
-        }
-
-        .submit-btn:hover {
-            background-color: #2980b9;
-            transform: scale(1.05);
-        }
-
-        /* Disabled Persons Section */
-        .disabled-section {
-            background-color: #f0f8ff;
-            padding: 40px 20px;
-            border-radius: 20px;
-            margin-top: 60px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeIn 1s forwards 0.5s;
-        }
-
-        .disabled-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .disabled-section p {
-            font-size: 1.2rem;
-            color: #555;
-        }
-
-        /* Team Section */
-        .team-section {
-            background-color: #3498db;
-            padding: 80px 20px;
-            color: white;
-            border-radius: 20px;
-            margin-top: 60px;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeIn 1s forwards 0.7s;
-        }
-
-        .team-section h2 {
-            font-size: 2.8rem;
-            margin-bottom: 40px;
-        }
-
-        .team-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .team-member {
-            position: relative;
-            width: 240px;
-            text-align: center;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 40px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .team-member img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .team-member:hover {
-    transform: scale(1.05); /* Slightly scale up the image */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Increased shadow spread and blur for a more dramatic effect */
-}
-
-
-        .team-info {
-            position: absolute;
-            bottom: 10px;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 12px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: 15px;
-        }
-
-        .team-member:hover .team-info {
-            opacity: 1;
-        }
-
-        .team-info h3 {
-            margin: 0;
-            font-size: 1.2rem;
-        }
-
-        .team-info p {
-            margin: 5px 0;
-            font-size: 1rem;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive Styles */
-        @media screen and (max-width: 768px) {
-            .team-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .contact-header {
-                font-size: 2.4rem;
-            }
-
-            .contact-description {
-                font-size: 1rem;
-            }
-
-            .team-section h2 {
-                font-size: 2.4rem;
-            }
-
-            .team-member {
-                width: 200px;
-            }
-        }
     </style>
 </head>
 
@@ -387,6 +183,25 @@
         <button type="submit" class="submit-btn">Send Message</button>
     </form>
 </div>
+<script>
+    let lastScrollTop = 0;
+    const nav = document.querySelector('.navMenu');
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (currentScroll > lastScrollTop) {
+            // Scrolling down - hide navbar
+            nav.style.top = '-100px'; // Adjust this value based on navbar height
+        } else {
+            // Scrolling up - show navbar
+            nav.style.top = '0';
+        }
+
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For mobile or negative scroll
+    });
+</script>
+
 
 </body>
 

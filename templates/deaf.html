@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deaf, Dumb, and Blind Awareness</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar-container">
+        {% include 'navmenu.html' %}
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <header>
+            <h1 class="header-text"> Deaf, Dumb, and Blind Awareness</h1>
+        </header>
+
+        <!-- Deaf Awareness Section -->
+        <section class="content">
+            <div class="left-side">
+                <h2>Deaf Awareness</h2>
+                <p class="animated-text">
+                    Deafness is a condition where a person has little to no hearing ability. It can be caused by various factors such as genetics, illness, or aging. People who are deaf communicate through sign language, lip reading, and written forms of communication.
+                </p>
+                <a href="https://def.org.in/indian-sign-language-classes/" target="_blank" rel="noopener noreferrer" class="interactive-btn">
+                    Learn More About Sign Language
+                </a>                
+            </div>
+            <div class="right-side">
+                <div class="image-container">
+                    <img src="../static/Deaf3.png" alt="Deaf Awareness">
+                </div>
+            </div>
+        </section>
+        <!-- Speech Impairment Awareness Section -->
+        <section class="content alternate">
+            
+            <div class="right-side">
+                <h2>Speech Impairment Awareness</h2>
+                <p class="animated-text">
+                    Speech impairment involves difficulties in speaking due to physical, neurological, or developmental conditions. Many people with speech impairments communicate through sign language or writing.
+                </p>
+                <a href="https://en.wikipedia.org/wiki/Speech_and_language_impairment" target="_blank" rel="noopener noreferrer" class="interactive-btn">
+                    Challenges Faced by Speech-Impaired People
+                </a>                
+            </div>
+            <div class="left-side">
+                <div class="image-container">
+                    <img src="../static/Deaf2.png" alt="Speech Impairment Awareness">
+                </div>
+            </div>
+        </section>
+
+        <!-- Blindness Awareness Section -->
+        <section class="content">
+            <div class="left-side">
+                <h2>Blindness Awareness</h2>
+                <p class="animated-text">
+                    Blindness refers to the condition of having no vision or very limited vision. Many blind individuals rely on braille, audio cues, and special tools to navigate the world.
+                </p>
+                <a href="https://www.businessinsider.com/how-blind-people-use-smartphones-2017-2" target="_blank" rel="noopener noreferrer" class="interactive-btn">
+                    How Blind People Use Mobile Phones
+                </a>                
+            </div>
+            <div class="right-side">
+                <div class="image-container">
+                    <img src="../static/Deaf1.png" alt="Blindness Awareness">
+                </div>
+            </div>
+        </section>
+
+        <!-- Animation Section -->
+        <section class="animated-section">
+            <h2 class="header-text">Empathy Through Animation</h2>
+            <p>Watch this animation to understand the challenges faced by people with disabilities:</p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/VRwP3I6tkyw" frameborder="0" allowfullscreen></iframe>
+        </section>
+    </div>
+    <style>
+       /* Navigation Styles */
+       .navMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: transparent;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: none;
+    transition: top 0.3s ease; /* Smooth hide/show animation */
+}
+
+
+.navMenu a {
+    color: #301ce6; /* Text color */
+    text-decoration: none;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 0 20px; /* Add space between items */
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navMenu a:hover {
+    color: #fddb3a; /* Hover color */
+    transform: translateY(-5px); /* Slight hover effect */
+}
+
+.navMenu .dot {
+    width: 6px;
+    height: 6px;
+    background: #fddb3a;
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Hover effects for navigation items */
+.navMenu a:nth-child(1):hover ~ .dot {
+    transform: translateX(30px);
+    opacity: 1;
+}
+
+.navMenu a:nth-child(2):hover ~ .dot {
+    transform: translateX(110px);
+    opacity: 1;
+}
+
+.navMenu a:nth-child(3):hover ~ .dot {
+    transform: translateX(200px);
+    opacity: 1;
+}
+
+.navMenu a:nth-child(4):hover ~ .dot {
+    transform: translateX(285px);
+    opacity: 1;
+}
+
+.navMenu a:nth-child(5):hover ~ .dot {
+    transform: translateX(370px);
+    opacity: 1;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+    .navMenu {
+        padding: 15px 20px;
+        flex-direction: column; /* Stack the items vertically */
+        align-items: center; /* Center the items vertically */
+    }
+    
+    .navMenu a {
+        margin: 10px 0; /* Adjust space between items */
+        font-size: 1.1em;
+    }
+
+    .navMenu a:hover {
+        transform: none; /* Remove hover translate effect on mobile */
+    }
+}
+
+    </style>
+
+<script>
+    let lastScrollTop = 0;
+    const nav = document.querySelector('.navMenu');
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (currentScroll > lastScrollTop) {
+            // Scrolling down - hide navbar
+            nav.style.top = '-100px'; // Adjust this value based on navbar height
+        } else {
+            // Scrolling up - show navbar
+            nav.style.top = '0';
+        }
+
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For mobile or negative scroll
+    });
+</script>
+
+</body>
+</html>

@@ -4,175 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Page</title>
+  <link rel="stylesheet" href="../static/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Merienda&display=swap" rel="stylesheet">
   <style>
-    /* General Styles */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif; /* Use Poppins for titles */
-      overflow-x: hidden;
-    }
-
-    section {
-      padding: 50px;
-      text-align: center;
-    }
-
-    h1, h2, h3 {
-      margin: 0;
-      font-family: 'Poppins', sans-serif; /* Poppins for headings */
-    }
-
-    p {
-      font-family: 'Merienda', cursive; /* Merienda for paragraph text */
-      font-size: 1.2rem;
-      line-height: 1.6;
-      color: #555;
-    }
-
-    /* About Us Section */
-    .about-section {
-      height: 100vh;
-      background: url('/static/specialy.jpg') no-repeat center center/cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      color: white;
-      text-transform: uppercase;
-      overflow: hidden;
-    }
-
-    .about-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
-      z-index: 1;
-    }
-
-    .about-section h1 {
-      font-size: 5rem;
-      font-weight: 700;
-      position: relative;
-      z-index: 2;
-      animation: fadeInScale 2s ease-in-out;
-    }
-
-    @keyframes fadeInScale {
-      0% {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    /* Content Section */
-    .content-section {
-      background: #ffffff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 50px;
-    }
-
-    .content-section .text {
-      width: 50%;
-      text-align: left;
-      padding: 20px;
-    }
-
-    .content-section .text h2 {
-      font-size: 2.5rem;
-      color: #1F509A;
-    }
-
-    .content-section .video {
-      width: 40%;
-      padding: 20px;
-      box-shadow: 0 5px 15px rgba(240, 238, 238, 0.2);
-      border-radius: 8px;
-    }
-
-    .content-section .video video {
-      width: 100%;
-      border-radius: 8px;
-    }
-
-    /* Our Project Section */
-    .project-section {
-      background: #f9f9f9;
-      padding: 100px 50px;
-    }
-
-    .project-section h2 {
-      font-size: 3rem;
-      color: #1F509A;
-      margin-bottom: 20px;
-      animation: slideIn 1.5s ease-in-out forwards;
-    }
-
-    .project-section p {
-      font-size: 1.2rem;
-      color: #333;
-      line-height: 1.8;
-      animation: fadeUp 1.5s ease-in-out forwards;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateY(50px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes fadeUp {
-      from {
-        transform: translateY(30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    /* Custom Section */
-    .custom-section {
-      height: 100vh;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    .custom-section h2 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-    }
-
-    .custom-section p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      width: 60%;
-      color: #f9f9f9;
-    }
 
 /* Navigation Styles */
 .navMenu {
@@ -180,15 +15,17 @@
     top: 0;
     left: 0;
     width: 100%;
-    background: transparent; /* Set the background to transparent */
+    background: transparent;
     padding: 15px 50px;
     display: flex;
-    justify-content: center; /* Center the navigation items horizontally */
-    align-items: center; /* Vertically align the navigation items */
+    justify-content: center;
+    align-items: center;
     z-index: 100;
-    font-family: 'Poppins', sans-serif; /* Use Poppins font */
-    box-shadow: none; /* Remove the box-shadow */
+    font-family: 'Poppins', sans-serif;
+    box-shadow: none;
+    transition: top 0.3s ease; /* Smooth hide/show animation */
 }
+
 
 .navMenu a {
     color: #f6f4e6; /* Text color */
@@ -301,6 +138,22 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
+    let lastScrollTop = 0;
+    const nav = document.querySelector('.navMenu');
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (currentScroll > lastScrollTop) {
+            // Scrolling down - hide navbar
+            nav.style.top = '-100px'; // Adjust this value based on navbar height
+        } else {
+            // Scrolling up - show navbar
+            nav.style.top = '0';
+        }
+
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For mobile or negative scroll
+    });
       AOS.init();
   </script>
 </body>

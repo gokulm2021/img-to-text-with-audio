@@ -92,3 +92,5 @@ AI-Image-Classification-OCR/
 ├── templates/
 │   └── index.html            # Frontend HTML file for the web interface
 └── README.md                 # This readme file
+
+Must have python 3.11 version  - https://www.python.org/downloads/release/python-3110/  Install windows 64bit

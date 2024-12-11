@@ -3,3 +3,4 @@ pytesseract
 Pillow
 pyttsx3
 Werkzeug
+tensorflow
