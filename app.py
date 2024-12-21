@@ -6,6 +6,9 @@ import pyttsx3
 from werkzeug.utils import secure_filename
 import tensorflow as tf
 import numpy as np
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 app = Flask(__name__)
 
@@ -143,6 +146,48 @@ def generate_audio(text):
         return f'/static/output/{audio_filename}'
     except Exception as e:
         raise Exception(f"Error in generating audio: {str(e)}")
+    
+@app.route('/send_email', methods=['POST'])
+def send_email():
+    try:
+        # Get form data
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('message')
+
+        # Validate form data
+        if not name or not email or not message:
+            return render_template('index.html', error="All fields are required!")
+
+        # Email credentials
+        sender_email = "gokulapriyan1979@gmail.com"
+        app_password = "syjj mzyk mlmv sypw"  # Use your generated app password here
+        receiver_email = "gokulapriyan1979@gmail.com"  # Replace with your desired recipient email
+
+        # Create the email content
+        subject = "New Contact Form Submission"
+        body = f"Name: {name}\nEmail: {email}\nMessage:\n{message}"
+
+        # Create MIME message
+        msg = MIMEMultipart()
+        msg['From'] = sender_email
+        msg['To'] = receiver_email
+        msg['Subject'] = subject
+        msg.attach(MIMEText(body, 'plain'))
+
+        # Send email
+        server = smtplib.SMTP('smtp.gmail.com', 587)  # Replace with your email provider's SMTP server and port
+        server.starttls()
+        server.login(sender_email, app_password)
+        server.sendmail(sender_email, receiver_email, msg.as_string())
+        server.quit()
+
+        # Return success with message for popup
+        return render_template('contact.html', success="Message sent successfully!")
+
+    except Exception as e:
+        # Return error message for popup
+        return render_template('contact.html', error=f"Failed to send message: {str(e)}")
 
 # Run the Flask application
 if __name__ == '__main__':

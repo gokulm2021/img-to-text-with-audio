@@ -7,6 +7,7 @@
     <title>Contact Us</title>
     <link rel="stylesheet" href="../static/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
 
         /* Navigation Styles */
@@ -112,22 +113,42 @@
 
         <div class="team-container">
             <div class="team-member">
-                <img src="{{ url_for('static', filename='ear.png') }}" alt="Team Member 1">
+                <img src="{{ url_for('static', filename='kaviya.jpg') }}" alt="Team Member 1">
                 <div class="team-info">
-                    <h3>John Doe</h3>
-                    <p>Lead Developer</p>
-                    <p>Email: john.doe@example.com</p>
-                    <p>Phone: +123 456 789</p>
+                    <h3>Kaviya.V</h3>
+                    <p>34622U18034</p>
+                    <p>Bsc Computer Science</p>
+                    <p>M.M.E.S. Women's Arts Science College</p>
                 </div>
             </div>
 
             <div class="team-member">
-                <img src="{{ url_for('static', filename='ear.png') }}" alt="Team Member 2">
+                <img src="{{ url_for('static', filename='hamitha.jpg') }}" alt="Team Member 2">
                 <div class="team-info">
-                    <h3>Jane Smith</h3>
-                    <p>UI/UX Designer</p>
-                    <p>Email: jane.smith@example.com</p>
-                    <p>Phone: +987 654 321</p>
+                    <h3>Hamitha.S</h3>
+                    <p>34622U18031</p>
+                    <p>Bsc Computer Science</p>
+                    <p>M.M.E.S. Women's Arts Science College</p>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='lakshmi.jpg') }}" alt="Team Member 3">
+                <div class="team-info">
+                    <h3>Lakshmi.R</h3>
+                    <p>34622U18036</p>
+                    <p>Bsc Computer Science</p>
+                    <p>M.M.E.S. Women's Arts Science College</p>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='mohana.jpg') }}" alt="Team Member 3">
+                <div class="team-info">
+                    <h3>Mohanapriya.S</h3>
+                    <p>34622U18045</p>
+                    <p>Bsc Computer Science</p>
+                    <p>M.M.E.S. Women's Arts Science College</p>
                 </div>
             </div>
 
@@ -136,28 +157,8 @@
                 <div class="team-info">
                     <h3>Michael Johnson</h3>
                     <p>Product Manager</p>
-                    <p>Email: michael.johnson@example.com</p>
-                    <p>Phone: +555 123 456</p>
-                </div>
-            </div>
-
-            <div class="team-member">
-                <img src="{{ url_for('static', filename='ear.png') }}" alt="Team Member 3">
-                <div class="team-info">
-                    <h3>Michael Johnson</h3>
-                    <p>Product Manager</p>
-                    <p>Email: michael.johnson@example.com</p>
-                    <p>Phone: +555 123 456</p>
-                </div>
-            </div>
-
-            <div class="team-member">
-                <img src="{{ url_for('static', filename='ear.png') }}" alt="Team Member 3">
-                <div class="team-info">
-                    <h3>Michael Johnson</h3>
-                    <p>Product Manager</p>
-                    <p>Email: michael.johnson@example.com</p>
-                    <p>Phone: +555 123 456</p>
+                    <p>Bsc Computer Science</p>
+                    <p>M.M.E.S. Women's Arts Science College</p>
                 </div>
             </div>
             
@@ -176,13 +177,35 @@
     <h1 class="contact-header">Contact Us</h1>
     <p class="contact-description">We'd love to hear from you! Please reach out with any questions, suggestions, or feedback. Our team is always here to assist you in any way we can.</p>
 
-    <form class="contact-form">
-        <input type="text" class="input-field" placeholder="Your Name" required>
-        <input type="email" class="input-field" placeholder="Your Email" required>
-        <textarea class="input-field" rows="4" placeholder="Your Message" required></textarea>
+    <form class="contact-form" action="/send_email" method="POST">
+        <input type="text" class="input-field" name="name" placeholder="Your Name" required>
+        <input type="email" class="input-field" name="email" placeholder="Your Email" required>
+        <textarea class="input-field" name="message" rows="4" placeholder="Your Message" required></textarea>
         <button type="submit" class="submit-btn">Send Message</button>
-    </form>
+    </form>    
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+    <script>
+        // Check for success or error message from Flask
+        {% if success %}
+            Swal.fire({
+                title: 'Success!',
+                text: '{{ success }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        {% endif %}
+
+        {% if error %}
+            Swal.fire({
+                title: 'Error!',
+                text: '{{ error }}',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        {% endif %}
+    </script>
 <script>
     let lastScrollTop = 0;
     const nav = document.querySelector('.navMenu');
