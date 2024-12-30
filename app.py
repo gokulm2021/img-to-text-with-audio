@@ -94,7 +94,6 @@ def extract_text(image_path):
         raise Exception(f"Error in extracting text: {str(e)}")
 
 # Function to classify the image using MobileNetV2
-# Function to classify the image using MobileNetV2
 def classify_image(image_path):
     try:
         # Open the image and convert to RGB if not already in RGB format
@@ -160,12 +159,12 @@ def send_email():
             return render_template('index.html', error="All fields are required!")
 
         # Email credentials
-        sender_email = "gokulapriyan1979@gmail.com"
-        app_password = "syjj mzyk mlmv sypw"  # Use your generated app password here
-        receiver_email = "gokulapriyan1979@gmail.com"  # Replace with your desired recipient email
+        sender_email = "kaviyqkaviya62@gmail.com"
+        app_password = "mhdl vgyr rsjb xeot"  # Use your generated app password here
+        receiver_email = "kaviyqkaviya62@gmail.com"  # Replace with your desired recipient email
 
         # Create the email content
-        subject = "New Contact Form Submission"
+        subject = "Message from specially Team!"
         body = f"Name: {name}\nEmail: {email}\nMessage:\n{message}"
 
         # Create MIME message
